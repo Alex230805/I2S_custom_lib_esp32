@@ -38,9 +38,9 @@ the library and the static variable.
 
 After that you can start to use the library, calls register-dedicated function to set up you desired configuration for the I2S interface. 
 
-To upload the configuration you need to flush it, so you need to call <strong>AFTER</strong> the register manipulation the <strong>"I2S_flush_config"</strong>
+To upload the configuration you need to flush it, so you need to call, <strong>AFTER</strong> the registers manipulation, the <strong>"I2S_flush_config"</strong>
 
-For every register-dedicated function you need to specify the cluster of I2S interface to use, so register line A or register line B.
+For every register-dedicated function you need to specify the cluster of I2S interface to use, so registers section A or registers section B.
 
 After that the content of the register can be written by insert in the <strong>write</strong> an uint32_t formatted bytes with the desired content
 
