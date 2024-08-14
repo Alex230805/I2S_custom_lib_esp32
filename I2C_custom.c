@@ -1,6 +1,6 @@
 #define I2S_CUSTOM_IMPLEMENTATION
 
-#include "./I2C_custom.h"
+#include "I2C_custom.h"
 
 
 extern void I2S_create_config(){
