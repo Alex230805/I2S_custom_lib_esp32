@@ -1,6 +1,6 @@
 #define COMMON_IMPLEMENTATION
 
-#include "./com.h"
+#include "com.h"
 
 
 
