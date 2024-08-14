@@ -2,10 +2,8 @@
 #define I2S_CUSTOM_H
 
 
-#include "./com.h"
-
-
-
+#include <com.h>
+#include <Arduino.h>
 
 /*
  *
