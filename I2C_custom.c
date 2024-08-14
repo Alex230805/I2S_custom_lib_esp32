@@ -1,4 +1,4 @@
-#define I2C_CUSTOM_IMPLEMENTATION
+#define I2S_CUSTOM_IMPLEMENTATION
 
 #include "./I2C_custom.h"
 
