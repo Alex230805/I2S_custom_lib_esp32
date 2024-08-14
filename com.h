@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <stdint.h>
+#include <Arduino.h>
+
 
 #define EMPTY_CONFIG_LIST 0x00
 
