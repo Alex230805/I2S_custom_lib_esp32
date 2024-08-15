@@ -125,51 +125,51 @@
 
 /* Library based on common.h to econfigure basic and advance I2S mode/configuration */
 
-extern void I2S_create_config();
-extern void I2S_flush_config();
+void I2S_create_config();
+void I2S_flush_config();
 
 /* Function to operate on the FIFO register for Read and Write */
 
 #ifdef I2S_FIFO_IMP
 
-extern void I2S_fifo_set(uint32_t write,int cluster);
-extern uint32_t I2S_fifo_get(int cluster);
+void I2S_fifo_set(uint32_t write,int cluster);
+uint32_t I2S_fifo_get(int cluster);
 
 #endif
 /* Function to operate on the Control register */
 
 #ifdef I2S_CONTROLLER_IMP
 
-extern void I2S_config_0_set(uint32_t config,int cluster);
-extern void I2S_config_1_set(uint32_t config,int cluster);
-extern void I2S_config_2_set(uint32_t config,int cluster);
-extern void I2S_config_timing_set(uint32_t config,int cluster);
-extern void I2S_config_fifo_set(uint32_t config,int cluster);
-extern void I2S_config_single_data_set(uint32_t config,int cluster);
-extern void I2S_config_channel_set(uint32_t config,int cluster);
-extern void I2S_config_timeout_d_set(uint32_t config,int cluster);
-extern void I2S_config_bitclock_set(uint32_t config,int cluster);
-extern void I2S_config_sample_rate_set(uint32_t config,int cluster);
-extern void I2S_config_powerdown_set(uint32_t config,int cluster);
-extern uint32_t I2S_config_get_status(int cluster);
+void I2S_config_0_set(uint32_t config,int cluster);
+void I2S_config_1_set(uint32_t config,int cluster);
+void I2S_config_2_set(uint32_t config,int cluster);
+void I2S_config_timing_set(uint32_t config,int cluster);
+void I2S_config_fifo_set(uint32_t config,int cluster);
+void I2S_config_single_data_set(uint32_t config,int cluster);
+void I2S_config_channel_set(uint32_t config,int cluster);
+void I2S_config_timeout_d_set(uint32_t config,int cluster);
+void I2S_config_bitclock_set(uint32_t config,int cluster);
+void I2S_config_sample_rate_set(uint32_t config,int cluster);
+void I2S_config_powerdown_set(uint32_t config,int cluster);
+uint32_t I2S_config_get_status(int cluster);
 
 #endif
 /* Function to operate on the DMA registe */
 
 #ifdef I2S_DMA_IMP
 
-extern void I2S_dma_config(uint32_t config,int cluster);
-extern void I2S_dma_rvx_data_count(uint32_t config,int cluster);
-extern void I2S_dma_link_reg(uint32_t write, uint32_t read,int cluster);
+void I2S_dma_config(uint32_t config,int cluster);
+void I2S_dma_rvx_data_count(uint32_t config,int cluster);
+void I2S_dma_link_reg(uint32_t write, uint32_t read,int cluster);
 
-extern uint32_t I2S_dma_get_eof_descriptop_address_in(int cluster);
-extern uint32_t I2S_dma_get_eof_descriptor_address_out(int cluster);
-extern uint32_t I2S_dma_get_eof_buffer_address_out(int cluster);
-extern uint32_t* I2S_dma_get_link_in_descriptor(int cluster);
-extern uint32_t* I2S_dma_get_link_out_descriptor(int cluster);
+uint32_t I2S_dma_get_eof_descriptop_address_in(int cluster);
+uint32_t I2S_dma_get_eof_descriptor_address_out(int cluster);
+uint32_t I2S_dma_get_eof_buffer_address_out(int cluster);
+uint32_t* I2S_dma_get_link_in_descriptor(int cluster);
+uint32_t* I2S_dma_get_link_out_descriptor(int cluster);
 
-extern uint32_t I2S_dma_get_rx_status(int cluster);
-extern uint32_t I2S_dma_get_tx_status(int cluster);
+uint32_t I2S_dma_get_rx_status(int cluster);
+uint32_t I2S_dma_get_tx_status(int cluster);
 
 #endif
 
@@ -177,24 +177,24 @@ extern uint32_t I2S_dma_get_tx_status(int cluster);
 
 #ifdef I2S_PDM_IMP
 
-extern void I2S_pdm_config_set(uint32_t config,int cluster);
-extern void I2S_pdm_freq_set(uint32_t config,int cluster);
+void I2S_pdm_config_set(uint32_t config,int cluster);
+void I2S_pdm_freq_set(uint32_t config,int cluster);
 
 #endif
 /* Function to operate on the Interrupt register */
 
 #ifdef I2S_INT_IMP
 
-extern uint32_t I2S_interrupt_get_raw(int cluster);
-extern uint32_t I2S_interrupt_get_msk_status(int cluster);
-extern void I2S_interrupt_set_enable_bit(uint32_t command,int cluster);
-extern void I2S_interrupt_clear(uint32_t command,int cluster);
+uint32_t I2S_interrupt_get_raw(int cluster);
+uint32_t I2S_interrupt_get_msk_status(int cluster);
+void I2S_interrupt_set_enable_bit(uint32_t command,int cluster);
+void I2S_interrupt_clear(uint32_t command,int cluster);
 
 #endif
 
-#ifndef I2S_CUSTOM_IMPLEMENTATION
-#define I2S_CUSTOM_IMPLEMENTATION
-
+#ifndef I2S_IMPLEMENTATION
+#define I2S_IMPLEMENTATION
 #endif
+
 
 #endif

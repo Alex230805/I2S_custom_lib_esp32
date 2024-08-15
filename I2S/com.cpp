@@ -4,7 +4,7 @@
 
 
 
-extern void create_config(){
+void config_create_config(){
   I2C_config = (struct config_header*)malloc(sizeof(struct config_header));
   I2C_config->block_list = NULL;
   I2C_config->block_conf_number = 0;
@@ -12,7 +12,7 @@ extern void create_config(){
   return;
 }
 
-extern void config_clear(){
+void config_clear(){
   uint32_t* address;
   if(I2C_config->block_conf_number == 0){
     I2C_config->switch_header = NULL;
@@ -20,7 +20,7 @@ extern void config_clear(){
   }
   if(I2C_config->switch_header->next != NULL){
     I2C_config->switch_header = I2C_config->switch_header->next;
-    address = I2C_config->switch_header->next;
+    address = (uint32_t*)I2C_config->switch_header->next;
     config_clear();
   }
   free(address);
@@ -31,12 +31,12 @@ extern void config_clear(){
 }
 
 
-extern void __config_clear_rec(){
+void __config_clear_rec(){
   I2C_config->switch_header = I2C_config->block_list;
   config_clear();
 }
 
-extern void config_add(uint32_t address, uint32_t value){
+void config_add(uint32_t *address, uint32_t value){
   struct config_block* conf = NULL;
   conf = (struct config_block*)malloc(sizeof(struct config_block));
   conf->address = address;
@@ -56,32 +56,32 @@ extern void config_add(uint32_t address, uint32_t value){
   return;
 }
 
-extern struct config_block* config_get_by_address(uint32_t address){
-  uint32_t adr = NULL;
+uint32_t* config_get_by_address(uint32_t *address){
+  uint32_t *adr = NULL;
   I2C_config->switch_header = I2C_config->block_list;
   while(I2C_config->switch_header->next != NULL && I2C_config->switch_header->next->address != address){
       I2C_config->switch_header = I2C_config->switch_header->next;
   }
   if(I2C_config->switch_header != NULL){
-    adr = I2C_config->switch_header;
+    adr = (uint32_t*)I2C_config->switch_header;
   }
   I2C_config->switch_header = NULL;
   return adr;
 }
-extern struct config_block* config_get_by_value(uint32_t value){
-  uint32_t adr = NULL;
+uint32_t* config_get_by_value(uint32_t value){
+  uint32_t *adr = NULL;
   I2C_config->switch_header = I2C_config->block_list;
   while(I2C_config->switch_header->next != NULL && I2C_config->switch_header->next->value != value){
       I2C_config->switch_header = I2C_config->switch_header->next;
   }
   if(I2C_config->switch_header != NULL){
-    adr = I2C_config->switch_header;
+    adr = (uint32_t*)I2C_config->switch_header;
   }
   I2C_config->switch_header = NULL;
   return adr;
 }
 
-extern uint8_t config_upload(){
+uint8_t config_upload(){
   uint8_t status = NULL;
   if(I2C_config->block_conf_number == 0) return EMPTY_CONFIG_LIST;
   I2C_config->switch_header = I2C_config->block_list;
@@ -95,7 +95,7 @@ extern uint8_t config_upload(){
   return NULL;
 }
 
-extern uint8_t __config_upload_rec(){
+uint8_t __config_upload_rec(){
   struct config_block* address = NULL;
   uint8_t status = UPLOAD_START_UPLOAD;
 
@@ -123,7 +123,7 @@ extern uint8_t __config_upload_rec(){
   if(address == NULL){
     return ERROR_UPLOADING_BLOCK;
   }
-  memcpy(address->address,address->value,sizeof(address->value));
+  memcpy(address->address,&address->value,sizeof(address->value));
   return UPLOAD_CONFIG_BLOCK;
 }
 

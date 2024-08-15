@@ -33,7 +33,7 @@
 
 
 struct config_block{
-  uint32_t address;
+  uint32_t *address;
   uint32_t value;
   struct config_block* next;
 };
@@ -45,23 +45,19 @@ struct config_header{
 };
 
 
-extern void config_create_config();
-extern void config_add(uint32_t address, uint32_t value);
-extern void config_clear();
-extern void __config_clear_rec();
-extern struct config_block* config_get_by_address(uint32_t address);
-extern struct config_block* config_get_by_value(uint32_t value);
+void config_create_config();
+void config_add(uint32_t *address, uint32_t value);
+void config_clear();
+void __config_clear_rec();
+uint32_t* config_get_by_address(uint32_t *address);
+uint32_t* config_get_by_value(uint32_t value);
 
-extern uint8_t config_upload();
-extern uint8_t __config_upload_rec();
+uint8_t config_upload();
+uint8_t __config_upload_rec();
 
-extern uint8_t config_test_upload();
-extern uint8_t __config__test_upload_rec();
+uint8_t config_test_upload();
+uint8_t __config__test_upload_rec();
 
-extern struct config_header* I2C_config;
-
-#ifndef COMMON_IMPLEMENTATION
-#define COMMON_IMPLEMENTATION
-#endif
+static struct config_header* I2C_config = NULL;
 
 #endif
