@@ -18,10 +18,12 @@ void config_clear(){
     I2C_config->switch_header = NULL;
     return;
   }
-  if(I2C_config->switch_header->next != NULL){
-    address = (uint32_t*)I2C_config->switch_header->next;
+  if(I2C_config->switch_header != NULL){
+    address = (uint32_t*)I2C_config->switch_header;
     I2C_config->switch_header = I2C_config->switch_header->next;
     config_clear();
+  }else{
+    return;
   }
   free(address);
   address = NULL;
@@ -30,11 +32,6 @@ void config_clear(){
 
 }
 
-
-void __config_clear_rec(){
-  I2C_config->switch_header = I2C_config->block_list;
-  config_clear();
-}
 
 void config_add(uint32_t *address, uint32_t value){
   struct config_block* conf = NULL;
@@ -81,99 +78,15 @@ uint32_t* config_get_by_value(uint32_t value){
   return adr;
 }
 
-uint8_t config_upload(){
-  uint8_t status = NULL;
-  if(I2C_config->block_conf_number == 0) return EMPTY_CONFIG_LIST;
+void config_upload(){
+  if(I2C_config->block_conf_number == 0) return;
   I2C_config->switch_header = I2C_config->block_list;
-  status = __config_upload_rec();
-  I2C_config->switch_header = NULL;
-  switch(status){
-    case UPLOAD_CONFIG_BLOCK:
-      return UPLOAD_CONFIG_LIST;
-    default:
-      return status;
-  }
-  return NULL;
-}
 
-uint8_t __config_upload_rec(){
-  struct config_block* address = NULL;
-  uint8_t status = UPLOAD_START_UPLOAD;
-
-  if(I2C_config->switch_header->next != NULL){
-    address = I2C_config->switch_header->next;
+  while(I2C_config->switch_header->next != NULL){
+    memcpy(I2C_config->switch_header->address,&I2C_config->switch_header->value,sizeof(uint32_t));
     I2C_config->switch_header = I2C_config->switch_header->next;
-    status = __config_upload_rec();
   }
-  switch(status){
-    case ERROR_GENERAL_ERROR:
-      return ERROR_GENERAL_ERROR;
-
-    case ERROR_UPLOADING_BLOCK: 
-      return ERROR_UPLOADING_LIST;
-
-    case ERROR_UPLOADING_LIST:
-      return ERROR_UPLOADING_LIST;
-
-    case UPLOAD_CONFIG_BLOCK:
-      break;
-
-    default:
-      return ERROR_GENERAL_ERROR;
-  }
-  if(address == NULL){
-    return ERROR_UPLOADING_BLOCK;
-  }
-  memcpy(address->address,&address->value,sizeof(address->value));
-  return UPLOAD_CONFIG_BLOCK;
-}
-
-
-
-
-uint8_t config_test_upload(){
-  uint8_t status = NULL;
-  if(I2C_config->block_conf_number == 0) return EMPTY_CONFIG_LIST;
-  I2C_config->switch_header = I2C_config->block_list;
-  status = __config_upload_rec();
+  memcpy(I2C_config->switch_header->address,&I2C_config->switch_header->value,sizeof(uint32_t));
   I2C_config->switch_header = NULL;
-  switch(status){
-    case UPLOAD_CONFIG_BLOCK:
-      return UPLOAD_CONFIG_LIST;
-    default:
-      return status;
-  }
-  return NULL;
-}
-
-uint8_t __config_test_upload_rec(){
-  struct config_block* address = NULL;
-  uint8_t status = UPLOAD_START_UPLOAD;
-
-  if(I2C_config->switch_header->next != NULL){
-    address = I2C_config->switch_header->next;
-    I2C_config->switch_header = I2C_config->switch_header->next;
-    status = __config_upload_rec();
-  }
-  switch(status){
-    case ERROR_GENERAL_ERROR:
-      return ERROR_GENERAL_ERROR;
-
-    case ERROR_UPLOADING_BLOCK: 
-      return ERROR_UPLOADING_LIST;
-
-    case ERROR_UPLOADING_LIST:
-      return ERROR_UPLOADING_LIST;
-
-    case UPLOAD_CONFIG_BLOCK:
-      break;
-
-    default:
-      return ERROR_GENERAL_ERROR;
-  }
-  if(address == NULL){
-    return ERROR_UPLOADING_BLOCK;
-  }
-  //Serial.println("Address: %d; Value: %d", address->address,address->value);
-  return UPLOAD_CONFIG_BLOCK;
+  return;
 }
