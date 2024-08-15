@@ -36,13 +36,13 @@ some part of the code by just decomment one or may of the 5 compilation flags th
 To <strong>Start</strong> use the library you first need to add on top of all the project a call to the <strong>"I2S_create_config()"</strong> function, to setting up properly 
 the library and the static variable.
 
-After that you can start to use the library, calls register-dedicated function to set up you desired configuration for the I2S interface. 
+After that you can start to use the library, call any of the register-dedicated functions to set up you desired configuration for the I2S interface. 
 
-To upload the configuration you need to flush it, so you need to call, <strong>AFTER</strong> the registers manipulation, the <strong>"I2S_flush_config()"</strong>
+To upload the configuration you need to flush it, so you need to call the <strong>"I2S_flush_config()"</strong> only <strong>AFTER</strong> all registers are setted up correctly.
 
 For every register-dedicated function you need to specify the cluster of I2S interface to use, so registers section A or registers section B.
 
-After that the content of the register can be written by insert in the <strong>write</strong> an uint32_t formatted bytes with the desired content
+After that the content of the register can be written by insert in the <strong>"write"</strong> variable in a function an uint32_t formatted bytes with the desired content
 
 #### !!: You can set up your project like you want, BUT you have to consider WHERE and WHEN put the "I2S_create_config()" and the "I2S_flush_config()" function.
 
