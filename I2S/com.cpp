@@ -19,8 +19,8 @@ void config_clear(){
     return;
   }
   if(I2C_config->switch_header->next != NULL){
-    I2C_config->switch_header = I2C_config->switch_header->next;
     address = (uint32_t*)I2C_config->switch_header->next;
+    I2C_config->switch_header = I2C_config->switch_header->next;
     config_clear();
   }
   free(address);
@@ -86,6 +86,7 @@ uint8_t config_upload(){
   if(I2C_config->block_conf_number == 0) return EMPTY_CONFIG_LIST;
   I2C_config->switch_header = I2C_config->block_list;
   status = __config_upload_rec();
+  I2C_config->switch_header = NULL;
   switch(status){
     case UPLOAD_CONFIG_BLOCK:
       return UPLOAD_CONFIG_LIST;
@@ -100,8 +101,8 @@ uint8_t __config_upload_rec(){
   uint8_t status = UPLOAD_START_UPLOAD;
 
   if(I2C_config->switch_header->next != NULL){
-    I2C_config->switch_header = I2C_config->switch_header->next;
     address = I2C_config->switch_header->next;
+    I2C_config->switch_header = I2C_config->switch_header->next;
     status = __config_upload_rec();
   }
   switch(status){
@@ -135,6 +136,7 @@ uint8_t config_test_upload(){
   if(I2C_config->block_conf_number == 0) return EMPTY_CONFIG_LIST;
   I2C_config->switch_header = I2C_config->block_list;
   status = __config_upload_rec();
+  I2C_config->switch_header = NULL;
   switch(status){
     case UPLOAD_CONFIG_BLOCK:
       return UPLOAD_CONFIG_LIST;
@@ -149,8 +151,8 @@ uint8_t __config_test_upload_rec(){
   uint8_t status = UPLOAD_START_UPLOAD;
 
   if(I2C_config->switch_header->next != NULL){
-    I2C_config->switch_header = I2C_config->switch_header->next;
     address = I2C_config->switch_header->next;
+    I2C_config->switch_header = I2C_config->switch_header->next;
     status = __config_upload_rec();
   }
   switch(status){
