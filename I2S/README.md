@@ -33,12 +33,12 @@ This library support dynamic compilation flag, to cut of from compilation part o
 After the library has been included in the main project file it's possible to start the compilation. To optimize the file size compilation it's possible to exclude 
 some part of the code by just decomment one or may of the 5 compilation flags that can be founded on top of the header file of the I2C library, 
 
-To <strong>Start</strong> use the library you first need to add on top of all the project a call to the <strong>"I2S_create_config"</strong> function, to setting up properly 
+To <strong>Start</strong> use the library you first need to add on top of all the project a call to the <strong>"I2S_create_config()"</strong> function, to setting up properly 
 the library and the static variable.
 
 After that you can start to use the library, calls register-dedicated function to set up you desired configuration for the I2S interface. 
 
-To upload the configuration you need to flush it, so you need to call, <strong>AFTER</strong> the registers manipulation, the <strong>"I2S_flush_config"</strong>
+To upload the configuration you need to flush it, so you need to call, <strong>AFTER</strong> the registers manipulation, the <strong>"I2S_flush_config()"</strong>
 
 For every register-dedicated function you need to specify the cluster of I2S interface to use, so registers section A or registers section B.
 
@@ -57,8 +57,8 @@ Now you can enjoy work with this hight speed interface :)
 
 #### Main function
 
-- void I2S_fifo_set(uint32_t write,int cluster);
-- uint32_t I2S_fifo_get(int cluster);
+- void I2S_create_config();
+- void I2S_flush_config();
 
 #### I2S_FIFO_IMP
 
