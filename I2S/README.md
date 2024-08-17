@@ -59,6 +59,8 @@ Now you can enjoy work with this hight speed interface :)
 
 - void I2S_create_config();
 - void I2S_flush_config();
+- void I2S_clear_config();
+- void I2S_reset_interfaces();
 
 #### I2S_FIFO_IMP
 

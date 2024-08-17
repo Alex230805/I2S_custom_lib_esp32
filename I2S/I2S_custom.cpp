@@ -11,6 +11,74 @@ void I2S_flush_config(){
   config_upload();
 }
 
+void I2S_clear_config(){
+    config_clear();
+}
+
+void I2S_reset_interfaces(){
+    #ifdef I2S_CONTROLLER_IMP
+        I2S_config_0_set(0x00000000,0);
+        I2S_config_0_set(0x00000000,1);
+
+        I2S_config_1_set(0x00000000,0);
+        I2S_config_1_set(0x00000000,1);
+
+        I2S_config_2_set(0x00000000,0);
+        I2S_config_2_set(0x00000000,1);
+
+        I2S_config_timing_set(0x00000000,0);
+        I2S_config_timing_set(0x00000000,1);
+
+        I2S_config_fifo_set(0x00000000,0);
+        I2S_config_fifo_set(0x00000000,1);
+
+        I2S_config_single_data_set(0x00000000,0);
+        I2S_config_single_data_set(0x00000000,1);
+
+        I2S_config_channel_set(0x00000000,0);
+        I2S_config_channel_set(0x00000000,1);
+
+        I2S_config_timeout_d_set(0x00000000,0);
+        I2S_config_timeout_d_set(0x00000000,1);
+
+        I2S_config_bitclock_set(0x00000000,0);
+        I2S_config_bitclock_set(0x00000000,1);
+
+        I2S_config_sample_rate_set(0x00000000,0);
+        I2S_config_sample_rate_set(0x00000000,1);
+
+        I2S_config_powerdown_set(0x00000000,0);
+        I2S_config_powerdown_set(0x00000000,1);
+    #endif
+
+    #ifdef I2S_DMA_IMP
+        I2S_dma_config(0x00000000,0);
+        I2S_dma_config(0x00000000,1);
+
+        I2S_dma_rvx_data_count(0x00000000,0);
+        I2S_dma_rvx_data_count(0x00000000,1);
+
+    #endif
+
+    #ifdef I2S_PDM_IMP
+        I2S_pdm_config_set(0x00000000,0);
+        I2S_pdm_config_set(0x00000000,1);
+
+        I2S_pdm_freq_set(0x00000000,0);
+        I2S_pdm_freq_set(0x00000000,1);
+
+    #endif
+
+    #ifdef I2S_INT_IMP
+        I2S_interrupt_set_enable_bit(0x00000000,0);
+        I2S_interrupt_set_enable_bit(0x00000000,1);
+        
+        I2S_interrupt_clear(0x00000000,0);
+        I2S_interrupt_clear(0x00000000,1);
+    #endif
+
+}
+
 /* Function to operate on the FIFO register for Read and Write */
 #ifdef I2S_FIFO_IMP
 void I2S_fifo_set(uint32_t write,int cluster){

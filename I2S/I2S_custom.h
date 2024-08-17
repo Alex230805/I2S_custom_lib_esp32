@@ -127,6 +127,8 @@
 
 void I2S_create_config();
 void I2S_flush_config();
+void I2S_clear_config();
+void I2S_reset_interfaces();
 
 /* Function to operate on the FIFO register for Read and Write */
 
